@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Tilt+Neon&display=swap');
+/*
+Flamingo Orange: Dominant Color:- #FFB59A
+Sunrise Yellow: Complementary: #FFE7D6
+Sky blue: Complementary #2:- #DEF2FF
+Buttery Brown: Accent: #55433C 
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: 'Fredoka One', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  background-image: linear-gradient(
+    0deg,
+    rgb(247, 247, 247) 23.8%,
+    rgb(255, 181, 154) 92%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 64px;
+  position: absolute;
+  top: 40px;
+}
+
+.music-container {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 20px 20px 0 rgba(255, 181, 154, 0.6);
+  display: flex;
+  padding: 20px 30px;
+  position: absolute;
+  margin: 100px 100px;
+  z-index: 10;
+}
+
+.img-container {
+  position: relative;
+  width: 110px;
+}
+
+.img-container::after {
+  content: '';
+  background-color: #fff;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  border-radius:50%;
+  transform: translate(-50%, -55%);
+  
+}
+
+.img-container img {
+  width: inherit;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  
+  animation: rotate 5s linear infinite;
+  
+  animation-play-state: paused;
+}
+
+.music-container.play .img-container img {
+  animation-play-state: running; 
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  
+  to {
+    transform: rotate(360deg);
+  }
+  
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.action-btn {
+  background-color: #fff;
+  border: 0;
+  color: #dfdbdf;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.action-btn-big {
+  color: #cdc2d0;
+  font-size: 30px;
+}
+
+.action-btn:focus {
+  outline: 0;
+}
+
+.music-info {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px 15px 0 0;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: calc(100% - 40px);
+  padding: 10px 10px 10px 150px;
+  opacity: 0; 
+  transform: translateY(0%);
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;  
+}
+
+.music-info h4 {
+  margin: 0;
+}
+
+.music-container.play .music-info {
+  opacity: 1;
+  transform: translateY(-100%);
+}
+
+.progress-container {
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  height: 4px;
+  width: 100%;
+}
+
+.progress {
+  background-color: #fe8daa;
+  border-radius: 5px;
+  height: 100%;
+  width: 50%;
+  transition: width 0.1s linear;
+}
+
+.search-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}  
+
+.search-container .searchbox {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  display: block;
+  width: 100%;
+  max-width: 53px;
+  transition: 0.4s linear;
+  overflow: hidden;
+}
+
+.search-container .searchbox .searchbox_input {
+  font-family: 'Fredoka One', sans-serif;
+  display: block;
+  appearance: none;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  background-color: #55433C;
+  padding: 15px;
+  color: #55433C;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.4s linear;
+}
+
+.search-container .searchbox .searchbox_input::placeholder {
+  color: #55433c;
+}
+
+.search-container .searchbox .searchbox_icon {
+  position: absolute;
+  right: calc(53px / 2);
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.search-container .searchbox .searchbox_icon path {
+  fill:#FFE8DC;
+  transition:0.4s linear;
+}
+
+.search-container .searchbox:focus-within {
+  max-width: 300px;
+}
+
+.search-container .searchbox:focus-within .searchbox_input {
+  background-color: #FFE7D6;
+  padding-right: 50px;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+.search-container .searchbox:focus-within .searchbox_icon path {
+  fill: #55433C;
+}
+
+
+
+
+
+
+
+
+
+
+
+
