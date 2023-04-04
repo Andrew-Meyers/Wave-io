@@ -336,7 +336,27 @@ h1 {
 
 /* small devices */
 @media only screen and (max-width: 600px) {
+  .nav-bar {
+    bottom: 0;
+    width: 100vw;
+    height: 80px;
+  }
+  
+  .logo {
+    display: none;
+  }
 
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+  .nav-link {
+    justify-content: center;
+  }
+
+  main {
+    margin: 0;
+  }
 }
 
 /* large devices */
