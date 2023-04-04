@@ -15,6 +15,8 @@ const progressContainer = document.querySelector(".progress-container");
 const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
 const searchBar = document.querySelector(".searchbar_input");
+const toggleMenuButton = document.querySelector(".menu-container");
+const sidebar = document.querySelector(".sidebar");
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -257,6 +259,14 @@ audio.addEventListener('timeupdate', updateProgress)
 progressContainer.addEventListener('click', setProgress)
 
 audio.addEventListener('ended', nextSong)
+
+toggleMenuButton.addEventListener('click', function() {
+  sidebar.classList.toggle("open");
+});
+
+sidebar.addEventListener('click', function() {
+  sidebar.classList.toggle("open");
+});
 
 // Search Bar Code Here:
 function SearchSong(input) {
