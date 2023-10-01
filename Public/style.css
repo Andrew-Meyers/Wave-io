@@ -180,74 +180,6 @@ h1 {
   transition: width 0.1s linear;
 }
 
-.search-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}  
-
-.search-container .searchbox {
-  position: absolute;
-  top: 40px;
-  right: 60px;
-  display: block;
-  width: 100%;
-  max-width: 53px;
-  transition: 0.4s linear;
-  overflow: hidden;
-}
-
-.search-container .searchbox .searchbox_input {
-  font-family: 'Fredoka One', sans-serif;
-  display: block;
-  appearance: none;
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 50px;
-  background-color: #55433C;
-  padding: 15px;
-  color: #55433C;
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.4s linear;
-}
-
-.search-container .searchbox .searchbox_input::placeholder {
-  color: #55433c;
-}
-
-.search-container .searchbox .searchbox_icon {
-  position: absolute;
-  right: calc(53px / 2);
-  top: 50%;
-  transform: translate(50%, -50%);
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-}
-
-.search-container .searchbox .searchbox_icon path {
-  fill:#FFE8DC;
-  transition:0.4s linear;
-}
-
-.search-container .searchbox:focus-within {
-  max-width: 300px;
-}
-
-.search-container .searchbox:focus-within .searchbox_input {
-  background-color: #FFE7D6;
-  padding-right: 50px;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
-}
-
-.search-container .searchbox:focus-within .searchbox_icon path {
-  fill: #55433C;
-}
-
 .nav-bar {
   position: fixed;
   background-color: var(--background-primary);
@@ -368,7 +300,7 @@ h1 {
   }
 
   .nav-bar:hover {
-    width: 200px;
+    width: 210px;
   }
 
   .nav-bar:hover .link-text {

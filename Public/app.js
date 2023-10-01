@@ -1,9 +1,3 @@
-/* 
-
-
-
-*/
-
 const musicContainer = document.querySelector(".music-container");
 const playBtn = document.querySelector("#play");
 const prevBtn = document.querySelector("#prev");
@@ -14,9 +8,6 @@ const progress = document.querySelector(".progress");
 const progressContainer = document.querySelector(".progress-container");
 const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
-const searchBar = document.querySelector(".searchbar_input");
-const toggleMenuButton = document.querySelector(".menu-container");
-const sidebar = document.querySelector(".sidebar");
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -72,6 +63,25 @@ const online = true;
 
 // Song Titles
 const songs = [
+  "2009",
+  "Small Worlds",
+  "Jet Fuel",
+  "Ladders",
+  "Objects in the Mirror",
+  "Love Lost",
+  "Best Day Ever",
+  "Donald Trump",
+  "Sprinter",
+  "Trojan Horse",
+  "Our 25th Birthday",
+  "I Wonder",
+  "Flashing Lights",
+  "Heartless",
+  "Champion",
+  "The Glory",
+  "Graduation",
+  "Kody Blu 31",
+  "Dance Now",
   "96 Bulls",
   "Always",
   "BQE",
@@ -92,8 +102,11 @@ const songs = [
   "Capo",
   "3005",
   "Boys a Liar(pt. 2)",
-  "Small Worlds",
-
+  "Dreams and Nightmares",
+  "Cripstian",
+  "Chip on my Shoulder",
+  "Praise the Lord",
+  "Road to Zion"
 ];
 
 var songIndex = 0;
@@ -155,11 +168,13 @@ function loadSong(song) {
       playPromise.then(() => {
         // Automatic Playback started
         // Safely Pause Audio
+        audio.load;
         playSong();
-        audio.pause();
+        pauseSong();
       }).catch((error) => {
         // Auto-Playing prevented
         pauseSong();
+        console.log("We are not Playing!")
       });
     }
   } else {
@@ -173,6 +188,7 @@ function playSong() {
   playBtn.querySelector('i.fas').classList.add('fa-pause')
   
   audio.play()
+  audio.autoplay = true
 }
 
 function pauseSong() {
@@ -203,7 +219,6 @@ function nextSong() {
   }
     
   loadSong(songs[songIndex])
-    
   playSong()
 }
 
@@ -260,15 +275,3 @@ progressContainer.addEventListener('click', setProgress)
 
 audio.addEventListener('ended', nextSong)
 
-toggleMenuButton.addEventListener('click', function() {
-  sidebar.classList.toggle("open");
-});
-
-sidebar.addEventListener('click', function() {
-  sidebar.classList.toggle("open");
-});
-
-// Search Bar Code Here:
-function SearchSong(input) {
-  
-}
