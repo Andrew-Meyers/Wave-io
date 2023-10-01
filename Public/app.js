@@ -168,13 +168,13 @@ function loadSong(song) {
       playPromise.then(() => {
         // Automatic Playback started
         // Safely Pause Audio
-        audio.load;
-        playSong();
-        pauseSong();
+        pauseSong()
       }).catch((error) => {
         // Auto-Playing prevented
-        pauseSong();
-        console.log("We are not Playing!")
+        pauseSong()
+        playSong()
+        console.log("We should not be playing!")
+        console.log(error)
       });
     }
   } else {
@@ -188,7 +188,6 @@ function playSong() {
   playBtn.querySelector('i.fas').classList.add('fa-pause')
   
   audio.play()
-  audio.autoplay = true
 }
 
 function pauseSong() {
@@ -217,8 +216,10 @@ function nextSong() {
   if (songIndex > songs.length - 1) {
     songIndex = 0
   }
-    
+  
+  console.log("About to Load Song")
   loadSong(songs[songIndex])
+  console.log("Song Loaded, Ready, Fire!!!")
   playSong()
 }
 
