@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "wave-io",
-    "public": "Public",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -27,6 +27,6 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": false
   }
 }
