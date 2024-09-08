@@ -12,6 +12,10 @@ const timeElapsed = document.querySelector("#current-time");
 const timeRemaining = document.querySelector("#time-remaining");
 const totalTime = document.querySelector("#total-time");
 const cover = document.querySelector("#cover");
+const themeSwitch = document.getElementById("theme-SwitchBtn");
+const themeText = document.getElementById("theme-text");
+const themeIcon = document.getElementById("theme-Icon");
+const body = document.body;
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -41,115 +45,30 @@ const analytics = getAnalytics(app);
 const storage = getStorage(app);
 const storageReference = ref(storage)
 
-/*
-getDownloadURL(ref(storage, 'Images/96 Bulls.png')).then((url) => {
-  // 'url' is the download URL for 'Images/96 Bulls.png'
-
-
-  You can download this directly: 
-  const xhr = new XMLHttpRequest();
-  xhr.responseType = 'blob';
-  xhr.onload = (event) => {
-    const blob = xhr.response;
-  };
-  xhr.open('GET', url);
-  xhr.send();
-  
-
-  // Or insert it into an image element or an element of your choice
-  cover.setAttribute('src', url);
-}).catch((error) => {
-  // Handles any errors
-});
-*/
 
 const online = true;
 
-// Song Titles
+// The variables for the program
 
-const songs = [
-  "2009",
-  "Small Worlds",
-  "Jet Fuel",
-  "Ladders",
-  "Objects in the Mirror",
-  "Love Lost",
-  "Best Day Ever",
-  "Donald Trump",
-  "Sprinter",
-  "Trojan Horse",
-  "Our 25th Birthday",
-  "I Wonder",
-  "Flashing Lights",
-  "Heartless",
-  "Champion",
-  "The Glory",
-  "Kody Blu 31",
-  "Dance Now",
-  "96 Bulls",
-  "Always",
-  "BQE",
-  "Clinton Hill",
-  "Grateful",
-  "Parked Cars",
-  "Pomegranate",
-  "Vamp Anthem",
-  "Location",
-  "I love you, I hate you",
-  "Go Stupid",
-  "Outside(Better Days)",
-  "Super Gremlin",
-  "Sky",
-  "Stop Breathing",
-  "On that Time",
-  "Rapstar(Polo G)",
-  "Capo",
-  "3005",
-  "Boys a Liar(pt. 2)",
-  "Dreams and Nightmares",
-  "Cripstian",
-  "Chip on my Shoulder",
-  "Praise the Lord",
-  "Road to Zion"
-];
+const darkIconSvg = `<title/>
+                <path d="M20.21,15.32A8.56,8.56,0,1,1,11.29,3.5a.5.5,0,0,1,.51.28.49.49,0,0,1-.09.57A6.46,6.46,0,0,0,9.8,9a6.57,6.57,0,0,0,9.71,5.72.52.52,0,0,1,.58.07A.52.52,0,0,1,20.21,15.32Z" fill="#1E1B24"/>`;
+const lightIconSvg = `<title/>
+                <circle cx="12" cy="12" fill="#1E1B24" r="5"/><path d="M21,13H20a1,1,0,0,1,0-2h1a1,1,0,0,1,0,2Z" fill="#1E1B24"/>
+                <path d="M4,13H3a1,1,0,0,1,0-2H4a1,1,0,0,1,0,2Z" fill="#1E1B24"/>
+                <path d="M17.66,7.34A1,1,0,0,1,17,7.05a1,1,0,0,1,0-1.41l.71-.71a1,1,0,1,1,1.41,1.41l-.71.71A1,1,0,0,1,17.66,7.34Z" fill="#1E1B24"/>
+                <path d="M5.64,19.36a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.41L5.64,17a1,1,0,0,1,1.41,1.41l-.71.71A1,1,0,0,1,5.64,19.36Z" fill="#1E1B24"/>
+                <path d="M12,5a1,1,0,0,1-1-1V3a1,1,0,0,1,2,0V4A1,1,0,0,1,12,5Z" fill="#1E1B24"/>
+                <path d="M12,22a1,1,0,0,1-1-1V20a1,1,0,0,1,2,0v1A1,1,0,0,1,12,22Z" fill="#1E1B24"/>
+                <path d="M6.34,7.34a1,1,0,0,1-.7-.29l-.71-.71A1,1,0,0,1,6.34,4.93l.71.71a1,1,0,0,1,0,1.41A1,1,0,0,1,6.34,7.34Z" fill="#1E1B24"/>
+                <path d="M18.36,19.36a1,1,0,0,1-.7-.29L17,18.36A1,1,0,0,1,18.36,17l.71.71a1,1,0,0,1,0,1.41A1,1,0,0,1,18.36,19.36Z" fill="#1E1B24"/>`;
 
 var songIndex = 0;
 var playPromise = audio.play();
 
 var setShuffle = false;
+let shufflePlaylist = [];
 
 // Creating a reference to the songs in the current Firebase Storage center
-
-/*
-songs.forEach(element => {
-
-  var song = {
-    name: element,
-    url: getDownloadURL(ref(storage, `Music/${element}.mp3`)).then((url) => {
-        return url;  
-      }).catch((error) => {
-        // Help with error code later
-      })
-  }
-
-  var image = {
-    name: element,
-    url: getDownloadURL(ref(storage, `Images/${element}.png`)).then((url) => {
-        return url;
-      }).catch((error) => {
-        // Help with error code later
-      })
-  }
-  
-  url = song.url;
-
-  songsURLS.push(song.url);
-  coverURLS.push(image.url);
-
-}); 
-*/
-
-
 
 // Initially Load Songs into DOM
 loadSong(songList[songIndex]);
@@ -220,16 +139,23 @@ function prevSong() {
 }
 
 function nextSong() {
-  songIndex++
+  if (setShuffle) {
+    songIndex = (songIndex + 1) % shufflePlaylist.length;
+    loadSong(songList[songIndex])
+  } else {
+      
+    songIndex++
+        
+    if (songIndex > songList.length - 1) {
+      songIndex = 0
+    }
     
-  if (songIndex > songList.length - 1) {
-    songIndex = 0
+    console.log("About to Load Song")
+    loadSong(songList[songIndex])
+    console.log("Song Loaded, Ready, Fire!!!")
+    playSong()    
   }
   
-  console.log("About to Load Song")
-  loadSong(songList[songIndex])
-  console.log("Song Loaded, Ready, Fire!!!")
-  playSong()
 }
 
 function updateProgress(e) {
@@ -280,7 +206,29 @@ function setProgress(e) {
   audio.currentTime = (clickX / width) * duration
 }
 
-// Add shuffle song code here
+// Shuffles the array using the fisher-yates algorithm
+
+function FisherYates(array) {
+  let shuffle = array.slice(); // creates a copy of our array
+  for (let i = shuffle.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffle[i], shuffle[j]] = [shuffle[j], shuffle[i]];
+  }
+
+  return shuffle;
+}
+
+function shuffleSong() {
+  setShuffle = !setShuffle;
+  if (setShuffle) {
+    shufflePlaylist = FisherYates(songList);
+  } else {
+    shufflePlaylist = [];
+  }
+}
+
+/*
+ Add shuffle song code here
 function shuffleSong() {
   if (!setShuffle) {
     setShuffle = true
@@ -288,9 +236,22 @@ function shuffleSong() {
 
   pauseSong()
 
-  songIndex = Math.floor(Math.random() * songs.length) + 1;
+  songIndex = Math.floor(Math.random() * songList.length) + 1;
 
   nextSong()
+}
+*/
+
+function switchTheme() {
+  if (body.classList == 'dark') {
+    body.classList.replace('dark', 'light');
+    themeText.textContent = "Dark";
+    themeIcon.innerHTML = darkIconSvg;
+  } else if (body.classList == 'light') {
+    body.classList.replace('light', 'dark');
+    themeText.textContent = "Light";
+    themeIcon.innerHTML = lightIconSvg;
+  }
 }
 
 // Event Listeners
@@ -314,4 +275,6 @@ audio.addEventListener('timeupdate', updateProgress)
 progressContainer.addEventListener('click', setProgress)
 
 audio.addEventListener('ended', nextSong)
+
+themeSwitch.addEventListener('click', switchTheme)
 

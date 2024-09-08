@@ -6,8 +6,11 @@
 :root {
   --text-dark: #484554;
   --text-light: #F9EFFD;
+  --text-white: #EAE9FC;
   --text-medium: #ADA9BB;
   
+  --icons-dark: #b1b1b1;
+
   --alt-color01: #7168B6;
   --alt-color02: #938BB7;
   --alt-color03: #E7D7F6;
@@ -19,12 +22,28 @@
   --background04: #6D5192;
   --background05: #DC9C98;
 
+  --backgroundGradient: linear-gradient(-45deg, #ee765280, #e73c7e80, #23a5d580, #23d5ab80);
+  --backdropLight: #f9f9f9;
+  --backdropDark: #000000;
+
   --font-primary: 'Outfit', sans-serif;
   --font-header: 'Fredoka One', sans-serif;
   --font-secondary: 'Oxanium', sans-serif;
   --font-header-alt: 'Fredoka', sans-serif;
 
   --transition-speed: 600ms;
+}
+
+.light {
+  --bg: var(--backgroundGradient), var(--backdropLight);
+  --title: var(--text-dark);
+  --mobile-icons: var(--text-dark);
+}
+
+.dark {
+  --bg: var(--backgroundGradient), var(--backdropDark);
+  --title: var(--text-white);
+  --mobile-icons: var(--icons-dark)
 }
 
 * {
@@ -43,11 +62,30 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-image: url('Player-Background.png');
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+body {
+	background: var(--bg);
+  transition: background 500ms ease-in-out;
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 body::-webkit-scrollbar {
@@ -67,8 +105,9 @@ h1 {
   position: absolute;
   top: 52px;
   text-transform: uppercase;
-  color: var(--text-dark);
+  color: var(--title);
   font-family: var(--font-header);
+  transition: color 1000ms ease-in-out;
 }
 
 h4 {
@@ -78,6 +117,7 @@ h4 {
   font-weight: 400;
   font-style: normal;
   line-height: normal;
+  transition: color 1000ms ease-in-out;
 }
 
 h5 {
@@ -87,12 +127,14 @@ h5 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: color 1000ms ease-in-out;
 }
 
 h6 {
   color: var(--text-dark);
   font-family: var(--font-primary);
   font-size: 8px;
+  transition: color 1000ms ease-in-out;
 }
 
 p {
@@ -103,6 +145,8 @@ p {
   font-weight: 400;
   line-height: normal;
 }
+
+/* actual music player elements below */
 
 .music-container {
   background-color: rgba(247, 247, 247, 0.90);
@@ -258,6 +302,8 @@ p {
   width: 50%;
   transition: width 0.1s linear;
 }
+
+/* sidebar elements below */
 
 .sidebar {
   position: fixed;
